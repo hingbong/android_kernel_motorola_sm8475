@@ -2,6 +2,7 @@
 /*
  * Copyright (c) 2017-2020, 2021, The Linux Foundation.
  * All rights reserved.
+ * Copyright (c) 2023 Qualcomm Innovation Center, Inc. All rights reserved.
  */
 
 #ifndef __MAIN_H__
@@ -20,14 +21,16 @@
 #include <linux/timer.h>
 
 #define WCN6750_DEVICE_ID 0x6750
+#define WCN6450_DEVICE_ID 0x6450
 #define ADRASTEA_DEVICE_ID 0xabcd
-#define QMI_WLFW_MAX_NUM_MEM_SEG 32
 #define THERMAL_NAME_LENGTH 20
 #define ICNSS_SMEM_VALUE_MASK 0xFFFFFFFF
 #define ICNSS_SMEM_SEQ_NO_POS 16
 #define QCA6750_PATH_PREFIX    "qca6750/"
 #define ADRASTEA_PATH_PREFIX   "adrastea/"
 #define ICNSS_MAX_FILE_NAME      100  //modify for different bdf loading
+#define WCN6450_PATH_PREFIX    "wcn6450/"
+#define ICNSS_MAX_FILE_NAME      35
 #define ICNSS_PCI_EP_WAKE_OFFSET 4
 #define ICNSS_DISABLE_M3_SSR 0
 #define ICNSS_ENABLE_M3_SSR 1
@@ -44,6 +47,10 @@ struct icnss_control_params {
 	unsigned long quirks;
 	unsigned int qmi_timeout;
 	unsigned int bdf_type;
+	unsigned int recovery_timeout;
+	unsigned int soc_wake_timeout;
+	unsigned int cal_timeout;
+	unsigned int wpss_ssr_timeout;
 };
 
 enum icnss_driver_event_type {
@@ -466,7 +473,7 @@ struct icnss_priv {
 	struct rproc *rproc;
 	atomic_t is_shutdown;
 	u32 qdss_mem_seg_len;
-	struct icnss_fw_mem qdss_mem[QMI_WLFW_MAX_NUM_MEM_SEG];
+	struct icnss_fw_mem qdss_mem[QMI_WLFW_MAX_NUM_MEM_SEG_V01];
 	void *get_info_cb_ctx;
 	int (*get_info_cb)(void *ctx, void *event, int event_len);
 	atomic_t soc_wake_ref_count;

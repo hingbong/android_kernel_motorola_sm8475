@@ -6427,7 +6427,7 @@ static int haptics_remove(struct platform_device *pdev)
 	free_pages((unsigned long)chip->start_buf, RICHTAP_MMAP_PAGE_ORDER);
 #endif //CONFIG_RICHTAP_FOR_PMIC_ENABLE
 
-	input_ff_destroy(chip->input_dev);
+	input_unregister_device(chip->input_dev);
 	dev_set_drvdata(chip->dev, NULL);
 
 	return 0;

@@ -64,5 +64,4 @@ blocklist locktorture
 blocklist rcutorture
 blocklist mmrm_test_module
 blocklist limits_stat
-blocklist fpc1020_mmi.ko
-blocklist ets_bix_mmi.ko
+blocklist limits_stress
